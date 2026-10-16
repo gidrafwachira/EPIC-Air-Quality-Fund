@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gidraf Wachira, Grants Management Support</title>
+<meta name="description" content="Gidraf Wachira's working portfolio for the EPIC Air Quality Fund Grants Management Support contract: a live awardee tracker, onboarding playbook outline, response library and AI workflows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300..800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F6F7;
+  --surface:#FFFFFF;
+  --ink:#15222C;
+  --muted:#56656F;
+  --rule:#D3DBE0;
+  --sky:#1C6A86;
+  --sky-soft:#E1EEF3;
+  --due:#9A6A06;
+  --due-soft:#FBF0D6;
+  --late:#A63A28;
+  --late-soft:#F8E1DC;
+  --done:#357049;
+  --done-soft:#DFEFE3;
+  --track:#E6ECEF;
+  --focus:#1C6A86;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F171D; --surface:#16212A; --ink:#E5ECF0; --muted:#9AABB6; --rule:#2A3843;
+    --sky:#6BB8D4; --sky-soft:#173543; --due:#E2B24E; --due-soft:#3A2E12; --late:#F08A75; --late-soft:#40201A;
+    --done:#7DC495; --done-soft:#183324; --track:#22303A; --focus:#6BB8D4; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F171D; --surface:#16212A; --ink:#E5ECF0; --muted:#9AABB6; --rule:#2A3843;
+  --sky:#6BB8D4; --sky-soft:#173543; --due:#E2B24E; --due-soft:#3A2E12; --late:#F08A75; --late-soft:#40201A;
+  --done:#7DC495; --done-soft:#183324; --track:#22303A; --focus:#6BB8D4; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+a{color:var(--sky);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.prose{max-width:68ch}
+p{margin:0 0 1em}
+h1,h2,h3{line-height:1.15;margin:0;font-weight:700;letter-spacing:-.015em}
+h2{font-size:clamp(1.6rem,3.2vw,2.2rem);margin-bottom:.5em}
+h3{font-size:1.1rem;letter-spacing:-.005em}
+.lede{font-size:1.15rem;color:var(--muted)}
+section{padding:72px 0;border-top:1px solid var(--rule)}
+
+/* nav */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;gap:24px;height:56px}
+.top .me{font-weight:700;text-decoration:none;color:var(--ink);white-space:nowrap}
+.top nav{display:flex;gap:20px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.top nav a{color:var(--muted);text-decoration:none;font-size:.92rem;white-space:nowrap}
+.top nav a:hover{color:var(--ink)}
+@media (max-width:860px){.top nav{display:none}}
+
+/* hero */
+.hero{padding:64px 0 24px;border-top:0}
+.hero h1{font-size:clamp(1.95rem,5.6vw,4rem);font-weight:800;letter-spacing:-.035em;max-width:17ch}
+.hero .lede{margin-top:20px;max-width:60ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px 36px;margin:28px 0 0;padding:0;list-style:none;color:var(--muted);font-size:.95rem}
+.facts b{color:var(--ink);font-weight:700;font-size:1.05rem;margin-right:4px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:.95rem;font-weight:600;padding:10px 18px;border-radius:6px;border:1px solid var(--sky);background:var(--sky);color:var(--paper);text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--sky)}
+.btn:hover{filter:brightness(1.08)}
+
+/* tracker */
+.tracker{margin-top:44px;background:var(--surface);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.tk-head{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;padding:20px 22px 16px;border-bottom:1px solid var(--rule)}
+.tk-head h2{font-size:1.25rem;margin:0}
+.tk-head p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.seg button{font:inherit;font-size:.85rem;padding:6px 12px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button[aria-pressed="true"]{background:var(--sky-soft);color:var(--ink);font-weight:600}
+select{font:inherit;font-size:.85rem;padding:6px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--surface);color:var(--ink)}
+.small-btn{font:inherit;font-size:.85rem;padding:6px 12px;border:1px solid var(--rule);border-radius:6px;background:transparent;color:var(--ink);cursor:pointer}
+.small-btn:hover{border-color:var(--sky);color:var(--sky)}
+.tk-summary{padding:12px 22px;font-size:.92rem;color:var(--muted);border-bottom:1px solid var(--rule);background:color-mix(in srgb,var(--sky-soft) 40%,var(--surface))}
+.tk-summary strong{color:var(--ink)}
+.tk-table{width:100%;border-collapse:collapse;font-size:.92rem}
+.tk-table th{text-align:left;font-weight:600;color:var(--muted);font-size:.8rem;padding:10px 14px;border-bottom:1px solid var(--rule);white-space:nowrap}
+.tk-table td{padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:middle}
+.tk-table tr:last-child td{border-bottom:0}
+.tk-table td:first-child,.tk-table th:first-child{padding-left:22px}
+.tk-table td:last-child,.tk-table th:last-child{padding-right:22px}
+.org{font-weight:600}
+.org small{display:block;font-weight:400;color:var(--muted);font-size:.82rem}
+.chip{display:inline-block;font-size:.78rem;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.chip.late{background:var(--late-soft);color:var(--late)}
+.chip.soon{background:var(--due-soft);color:var(--due)}
+.chip.later{background:var(--track);color:var(--muted)}
+.chip.ok{background:var(--done-soft);color:var(--done)}
+.when{white-space:nowrap}
+.when small{display:block;color:var(--muted);font-size:.8rem}
+.lane{position:relative;height:22px;min-width:220px}
+.lane .bar{position:absolute;left:0;right:0;top:10px;height:3px;background:var(--track);border-radius:2px}
+.lane .elapsed{position:absolute;left:0;top:10px;height:3px;background:var(--sky);border-radius:2px;opacity:.55}
+.lane .dot{position:absolute;top:6px;width:11px;height:11px;margin-left:-5.5px;border-radius:50%;border:2px solid var(--surface);background:var(--muted)}
+.lane .dot.done{background:var(--done)}
+.lane .dot.late{background:var(--late)}
+.lane .dot.soon{background:var(--due)}
+.lane .dot.later{background:var(--rule);border-color:var(--muted);border-width:1.5px}
+.lane .today{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);margin-left:-1px}
+.act{font:inherit;font-size:.85rem;font-weight:600;padding:6px 12px;border-radius:6px;border:1px solid var(--sky);background:transparent;color:var(--sky);cursor:pointer;white-space:nowrap}
+.act:hover{background:var(--sky);color:var(--paper)}
+.tk-foot{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;padding:12px 22px;font-size:.82rem;color:var(--muted);border-top:1px solid var(--rule)}
+.legend{display:flex;flex-wrap:wrap;gap:14px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.scroll{overflow-x:auto}
+.empty{padding:28px 22px;color:var(--muted)}
+@media (max-width:760px){
+  .tk-table thead{display:none}
+  .tk-table tr{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:14px 18px;border-bottom:1px solid var(--rule)}
+  .tk-table td{padding:0;border:0}
+  .tk-table td:first-child{padding-left:0}.tk-table td:last-child{padding-right:0}
+  .tk-table td.c-lane{grid-column:1 / -1}
+  .tk-table td.c-act{grid-column:1 / -1}
+  .lane{min-width:0}
+}
+
+/* dialog */
+dialog{border:1px solid var(--rule);border-radius:10px;padding:0;max-width:640px;width:calc(100% - 32px);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(10,20,28,.45)}
+.dlg-h{padding:18px 22px;border-bottom:1px solid var(--rule)}
+.dlg-h p{margin:4px 0 0;color:var(--muted);font-size:.88rem}
+.dlg-b{padding:18px 22px}
+.dlg-b textarea{width:100%;min-height:260px;font:inherit;font-size:.92rem;line-height:1.55;padding:12px;border:1px solid var(--rule);border-radius:6px;background:var(--paper);color:var(--ink);resize:vertical}
+.dlg-f{display:flex;gap:10px;justify-content:flex-end;padding:0 22px 18px;flex-wrap:wrap;align-items:center}
+.dlg-f .note{margin-right:auto;font-size:.82rem;color:var(--muted)}
+
+/* SOW mapping */
+.sow{margin-top:32px;border-top:2px solid var(--ink)}
+.sow-row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:32px;padding:28px 0;border-bottom:1px solid var(--rule)}
+.sow-row h3{display:flex;gap:12px;align-items:baseline}
+.sow-row h3 .n{color:var(--sky);font-weight:800}
+.ask{margin:12px 0 0;padding:0;list-style:none;color:var(--muted);font-size:.93rem}
+.ask li{padding-left:16px;position:relative;margin-bottom:6px}
+.ask li::before{content:"";position:absolute;left:0;top:.7em;width:6px;height:1px;background:var(--muted)}
+.did{margin:0;padding:0;list-style:none}
+.did li{margin-bottom:12px;padding-left:18px;position:relative}
+.did li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--sky)}
+.did b{font-weight:650}
+@media (max-width:760px){.sow-row{grid-template-columns:1fr;gap:12px}}
+
+.skills{width:100%;border-collapse:collapse;margin-top:40px;font-size:.95rem}
+.skills caption{text-align:left;font-weight:700;font-size:1.1rem;padding-bottom:10px}
+.skills th,.skills td{text-align:left;vertical-align:top;padding:14px 16px 14px 0;border-bottom:1px solid var(--rule)}
+.skills th{font-weight:600;width:38%}
+.skills td{color:var(--muted)}
+@media (max-width:640px){.skills th,.skills td{display:block;width:auto;padding:4px 0}.skills th{padding-top:14px;border:0}}
+
+/* principles */
+.pairs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 40px;margin-top:28px}
+.pair{padding:20px 0;border-top:1px solid var(--rule)}
+.pair h3{margin-bottom:6px}
+.pair .theirs{color:var(--muted);font-size:.92rem;margin-bottom:8px}
+
+/* playbook */
+.steps{list-style:none;margin:32px 0 0;padding:0;counter-reset:s;position:relative}
+.steps::before{content:"";position:absolute;left:17px;top:8px;bottom:8px;width:2px;background:var(--rule)}
+.steps li{counter-increment:s;position:relative;padding:0 0 28px 56px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--surface);border:2px solid var(--sky);color:var(--sky);font-weight:800;display:grid;place-items:center;font-size:.95rem}
+.steps h3{padding-top:6px}
+.steps .t{color:var(--muted);font-weight:500;font-size:.9rem;margin-left:8px}
+.steps dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:10px 0 0;font-size:.93rem}
+.steps dt{color:var(--muted)}
+.steps dd{margin:0}
+
+/* library */
+.lib{margin-top:28px;display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:0;border:1px solid var(--rule);border-radius:10px;background:var(--surface);overflow:hidden}
+.lib-list{border-right:1px solid var(--rule);display:flex;flex-direction:column;min-height:420px}
+.lib-search{padding:14px;border-bottom:1px solid var(--rule)}
+.lib-search input{width:100%;font:inherit;font-size:.92rem;padding:8px 10px;border:1px solid var(--rule);border-radius:6px;background:var(--paper);color:var(--ink)}
+.lib-items{list-style:none;margin:0;padding:6px 0;overflow-y:auto;max-height:440px}
+.lib-items button{display:block;width:100%;text-align:left;font:inherit;font-size:.92rem;padding:10px 16px;border:0;background:transparent;color:var(--ink);cursor:pointer;border-left:3px solid transparent}
+.lib-items button small{display:block;color:var(--muted);font-size:.8rem}
+.lib-items button[aria-current="true"]{background:var(--sky-soft);border-left-color:var(--sky)}
+.lib-view{padding:20px 22px;display:flex;flex-direction:column}
+.lib-view .meta{color:var(--muted);font-size:.85rem;margin:4px 0 14px}
+.lib-view pre{white-space:pre-wrap;font:inherit;font-size:.93rem;line-height:1.6;margin:0 0 16px;padding:14px;background:var(--paper);border-radius:6px;border:1px solid var(--rule);flex:1}
+.lib-view .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.lib-view .row span{font-size:.82rem;color:var(--muted)}
+@media (max-width:760px){.lib{grid-template-columns:1fr}.lib-list{border-right:0;border-bottom:1px solid var(--rule);min-height:0}.lib-items{max-height:220px}}
+
+/* AI */
+.ai-table{width:100%;border-collapse:collapse;margin-top:28px;font-size:.93rem}
+.ai-table th,.ai-table td{text-align:left;vertical-align:top;padding:14px 18px 14px 0;border-bottom:1px solid var(--rule)}
+.ai-table thead th{font-size:.82rem;color:var(--muted);font-weight:600;border-bottom:2px solid var(--ink)}
+.ai-table tbody th{font-weight:650;width:22%}
+@media (max-width:760px){
+  .ai-table thead{display:none}
+  .ai-table tr{display:block;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .ai-table th,.ai-table td{display:block;border:0;padding:3px 0;width:auto}
+  .ai-table td::before{content:attr(data-h);display:block;font-size:.78rem;color:var(--muted);font-weight:600}
+}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px 32px;margin-top:36px;padding:22px 24px;border-left:4px solid var(--sky);background:var(--surface)}
+.rules h3{grid-column:1 / -1;margin-bottom:-4px}
+.rules p{margin:0;font-size:.93rem}
+.made{margin-top:36px;max-width:68ch}
+.made h3{margin-bottom:8px}
+
+/* plan */
+.months{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:32px;border-top:2px solid var(--ink)}
+.month{padding:16px 16px 18px 0;border-right:1px solid var(--rule)}
+.month+.month{padding-left:16px}
+.month:last-child{border-right:0}
+.month h3{font-size:1rem}
+.month h3 span{display:block;font-size:.82rem;font-weight:500;color:var(--muted)}
+.month ul{margin:10px 0 0;padding-left:18px;font-size:.9rem}
+.month li{margin-bottom:6px}
+.surge{height:6px;margin-top:10px;background:var(--sky);border-radius:3px}
+@media (max-width:960px){.months{grid-template-columns:repeat(2,minmax(0,1fr))}.month,.month+.month{padding:16px 16px 18px 0;border-right:0;border-bottom:1px solid var(--rule)}.month:nth-child(even){padding-left:16px}}
+@media (max-width:520px){.months{grid-template-columns:1fr}.month:nth-child(even){padding-left:0}}
+
+/* background */
+.bg-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;margin-top:28px}
+.roles{list-style:none;margin:0;padding:0}
+.roles li{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.roles .yr{color:var(--muted);font-size:.88rem;padding-top:2px}
+.roles b{display:block}
+.roles span.o{color:var(--muted);font-size:.92rem}
+.roles p{margin:6px 0 0;font-size:.92rem}
+.side h3{margin:0 0 10px}
+.side ul{margin:0 0 28px;padding-left:18px;font-size:.93rem}
+.side li{margin-bottom:6px}
+.countries{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 28px;padding:0;list-style:none}
+.countries li{font-size:.85rem;padding:3px 10px;border:1px solid var(--rule);border-radius:999px;background:var(--surface)}
+@media (max-width:860px){.bg-grid{grid-template-columns:1fr;gap:24px}.roles li{grid-template-columns:1fr;gap:2px}}
+
+footer{padding:72px 0 56px;border-top:2px solid var(--ink)}
+footer h2{max-width:20ch}
+.contact{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 32px}
+.fine{font-size:.82rem;color:var(--muted);max-width:72ch}
+.theme-toggle{margin-left:12px;font:inherit;font-size:.82rem;padding:4px 10px;border:1px solid var(--rule);border-radius:6px;background:transparent;color:var(--muted);cursor:pointer}
+
+@media print{
+  .top,.cta,.controls,.act,.theme-toggle,.lib-search,dialog{display:none!important}
+  section{padding:28px 0;break-inside:avoid-page}
+  body{background:#fff;font-size:12pt}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="me" href="#top">Gidraf Wachira</a>
+    <nav aria-label="Sections">
+      <a href="#tracker">Tracker</a>
+      <a href="#scope">Scope of work</a>
+      <a href="#playbook">Playbook</a>
+      <a href="#library">Responses</a>
+      <a href="#ai">AI</a>
+      <a href="#plan">Six months</a>
+      <a href="#background">Background</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <h1>Grants management support for a 70-organisation portfolio</h1>
+      <p class="lede">The EPIC Air Quality Fund is onboarding 39 new awardees and growing to 70 organisations in 44 countries. I've spent six years running awardee portfolios across Africa and Asia: onboarding, agreements, invoices, reporting and the playbooks behind them. This page shows how I'd carry that load from week one.</p>
+      <ul class="facts">
+        <li><b>23+</b>awardees onboarded at NetHope</li>
+        <li><b>$1.5M+</b>annual portfolio, 7 countries</li>
+        <li><b>100%</b>awardee retention</li>
+        <li><b>50%</b>faster grant review</li>
+        <li><b>14:00–18:30</b>Nairobi time covers your 12:00–16:30 CET core hours</li>
+      </ul>
+      <div class="cta">
+        <a class="btn" href="#tracker">Try the tracker</a>
+        <a class="btn ghost" href="#scope">See the scope of work, mapped</a>
+      </div>
+
+      <div class="tracker" id="tracker" aria-labelledby="tk-title">
+        <div class="tk-head">
+          <div>
+            <h2 id="tk-title">Master awardee tracker, working sample</h2>
+            <p>Key dates across the award cycle, turned into the next action for the team. Fictional awardees, dated relative to today.</p>
+          </div>
+          <div class="controls">
+            <div class="seg" role="group" aria-label="Show actions due within">
+              <button type="button" data-win="30" aria-pressed="false">30 days</button>
+              <button type="button" data-win="90" aria-pressed="true">90 days</button>
+              <button type="button" data-win="all" aria-pressed="false">All</button>
+            </div>
+            <label class="sr" style="position:absolute;left:-9999px" for="cohort">Cohort</label>
+            <select id="cohort">
+              <option value="all">Both cohorts</option>
+              <option value="2026">2026 cohort</option>
+              <option value="2025">Earlier cohort</option>
+            </select>
+            <button type="button" class="small-btn" id="csv">Download CSV</button>
+          </div>
+        </div>
+        <div class="tk-summary" id="tk-summary" aria-live="polite"></div>
+        <div class="scroll">
+          <table class="tk-table">
+            <thead>
+              <tr><th>Awardee</th><th>Next milestone</th><th>Due</th><th>18-month award</th><th><span style="position:absolute;left:-9999px">Action</span></th></tr>
+            </thead>
+            <tbody id="tk-body"></tbody>
+          </table>
+        </div>
+        <div class="tk-foot">
+          <div class="legend" aria-label="Legend">
+            <span><i style="background:var(--done)"></i>Done</span>
+            <span><i style="background:var(--late)"></i>Overdue</span>
+            <span><i style="background:var(--due)"></i>Due within 30 days</span>
+            <span><i style="background:var(--rule);border:1.5px solid var(--muted)"></i>Scheduled</span>
+            <span><i style="background:var(--ink);border-radius:1px;width:2px;height:12px"></i>Today</span>
+          </div>
+          <span>In the role I'd build this in Excel or your existing tool. The logic is the same.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scope">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Your scope of work, mapped to what I've done</h2>
+        <p class="lede">Each workstream from the terms of reference, with the closest work I've already delivered. The left column is your wording, shortened.</p>
+      </div>
+
+      <div class="sow">
+        <div class="sow-row">
+          <div>
+            <h3><span class="n">1</span>New awardee onboarding</h3>
+            <ul class="ask">
+              <li>Kick-off meetings, support meetings and orientation for the 2026 cohort</li>
+              <li>Grant agreements and invoices with EPIC and UChicago admin offices</li>
+              <li>Invoice review against award terms; contract maintenance</li>
+            </ul>
+          </div>
+          <ul class="did">
+            <li><b>Onboarded 23+ awardees across 7 countries</b> at NetHope: agreements, invoices and orientation, with 100% adherence to award terms and donor, legal and regulatory requirements.</li>
+            <li>Ran a kick-off meeting with every awardee covering the agreement, expectations and named contacts, then <b>quarterly check-ins</b> to review progress and risk.</li>
+            <li>Drafted and negotiated grant contracts and routed them to the Chief Administrative Officer for approval.</li>
+            <li>Reviewed invoices for each <b>grant tranche</b> against award terms. Earlier, at Mezzanineware, processed invoices for 15+ farmer organisations against deliverable milestones with 100% financial accuracy.</li>
+          </ul>
+        </div>
+
+        <div class="sow-row">
+          <div>
+            <h3><span class="n">2</span>Portfolio administration and communications</h3>
+            <ul class="ask">
+              <li>Shared inbox and routine correspondence across 70 organisations</li>
+              <li>Reporting deadlines, narrative and financial reports, escalation</li>
+              <li>AirWatch newsletter content</li>
+              <li>Awardee webinars and networking events</li>
+              <li>Interim and 18-month report review; renewal background material</li>
+            </ul>
+          </div>
+          <ul class="did">
+            <li>Tracked every reporting and milestone date in Asana and <b>contacted each awardee a month before</b> interim and final reports were due.</li>
+            <li>Spotted delays early and drafted <b>no-cost extensions</b> for approval rather than letting deadlines slip.</li>
+            <li>Reviewed semi-annual and final reports for completeness against the grant agreement and followed up with awardees on gaps.</li>
+            <li>Planned webinars, working-group sessions and summit plenaries where awardees shared lessons. Wrote blogs, case studies and impact stories.</li>
+            <li>Prepared initial assessments and background material for renewals, informing decisions rather than making them. Retained <b>100% of awardees</b>.</li>
+          </ul>
+        </div>
+
+        <div class="sow-row">
+          <div>
+            <h3><span class="n">3</span>Documentation and systems</h3>
+            <ul class="ask">
+              <li>Master tracker of award, invoice, reporting, renewal and end dates</li>
+              <li>Awardee Onboarding Playbook that outlasts the contract</li>
+              <li>FAQs, templates and standard-response libraries</li>
+              <li>Workflow and tool improvements as the portfolio scales</li>
+            </ul>
+          </div>
+          <ul class="did">
+            <li>Built a <b>master tracker</b> with a project per awardee: report dates, milestones, invoice dates and check-ins. It cut project bottlenecks by 15%.</li>
+            <li>Wrote, tested and maintained a <b>grantmaking playbook</b> covering the whole cycle: call for proposals, info sessions, review, contracting, awardee management, risk, invoices and close-out.</li>
+            <li>Created the templates behind it: proposal review, interim and final reports, invoices, Asana project, communication assets, MEL data collection, plus FAQs. Grant review time fell by <b>50%</b>.</li>
+            <li>Kept risk and lessons-learned matrices so the playbook improved with each round.</li>
+          </ul>
+        </div>
+
+        <div class="sow-row">
+          <div>
+            <h3><span class="n">4</span>Monitoring, evaluation and analysis support</h3>
+            <ul class="ask">
+              <li>Data collection, cleaning and follow-up to close gaps</li>
+              <li>Portfolio reporting and awardee impact summaries</li>
+              <li>Background research on awardees</li>
+            </ul>
+          </div>
+          <ul class="did">
+            <li>Supported M&amp;E colleagues with collection, cleaning and follow-up across <b>9,500+ community submissions</b> and <b>1,752 climate-risk reports</b> in Nigeria and Uganda.</li>
+            <li>Led portfolio reporting to senior management and donors, and turned awardee results into impact stories.</li>
+            <li>Ran due diligence and background research on awardees for the review committee, and on 30+ agribusinesses and financial providers at Mezzanineware.</li>
+          </ul>
+        </div>
+
+        <div class="sow-row">
+          <div>
+            <h3><span class="n">5</span>Other Fund support</h3>
+            <ul class="ask">
+              <li>Conference logistics, briefing preparation, internal coordination</li>
+            </ul>
+          </div>
+          <ul class="did">
+            <li>Presented awardee case studies and prepared briefings for <b>COP28, COP29</b>, the CBA19 conference in Brazil, the ICT4D conference in Ghana and the NetHope Global Summit.</li>
+            <li>Organised three executive field trips for funders' senior management at Mezzanineware.</li>
+          </ul>
+        </div>
+      </div>
+
+      <table class="skills">
+        <caption>Technical skills and knowledge you listed</caption>
+        <tbody>
+          <tr><th scope="row">Microsoft Office and project tools</th><td>Built budget-vs-actual models in Excel with variance analysis across the $1.5M+ portfolio. Daily use of Asana, Monday.com, Trello, Salesforce, Power BI and Google Workspace.</td></tr>
+          <tr><th scope="row">Data organisation and light analysis</th><td>Cleaned and validated multi-country survey datasets in Excel. The tracker above exports to CSV for exactly this reason.</td></tr>
+          <tr><th scope="row">AI used appropriately and ethically</th><td>Drafting templates, summarising proposals and synthesising reports, with clear limits. <a href="#ai">See how below.</a></td></tr>
+          <tr><th scope="row">Supporting awardees in a portfolio</th><td>25+ grantee organisations supported from call for proposals to close-out.</td></tr>
+          <tr><th scope="row">Organisations in low- and middle-income countries</th><td>Grantees in Kenya, Uganda, Nigeria, Mali, the Philippines, Nepal and Bangladesh. Partners in Tanzania, Rwanda and Benin.</td></tr>
+          <tr><th scope="row">Newsletters, webinars, external communications</th><td>Blogs, case studies, webinars and conference panels. Contributor and peer reviewer for a 2026 ITU, WMO, UNDRR and IFRC report on AI for early warning.</td></tr>
+          <tr><th scope="row">Background in development and philanthropy</th><td>Twelve years in digital agriculture, health finance and climate programmes, the last six in grantmaking.</td></tr>
+          <tr><th scope="row">Self-directed across many workstreams</th><td>Remote since 2020, across CET, CST and EST core hours.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="approach">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Your grantmaking principles, and how I've worked</h2>
+        <p class="lede">Four of the Fund's published principles, each next to how I've run grants in practice.</p>
+      </div>
+      <div class="pairs">
+        <div class="pair">
+          <h3>Fund in-country ownership and global collaboration</h3>
+          <p class="theirs">Awardees are in-country actors who own their data, and that data feeds global systems.</p>
+          <p>My portfolios funded community-based organisations directly, then connected them through working groups, learning forums and global summits.</p>
+        </div>
+        <div class="pair">
+          <h3>Fund flexibly</h3>
+          <p class="theirs">No caps on operating costs, and budgets that can move between lines as needs change.</p>
+          <p>I ran flexible grants and used no-cost extensions to keep projects on track when reality changed, instead of penalising awardees for it.</p>
+        </div>
+        <div class="pair">
+          <h3>Fund for the long term</h3>
+          <p class="theirs">18-month awards, renewable up to twice.</p>
+          <p>Renewals are where good records matter most. I'd make sure every renewal brief draws on 18 months of clean tracker data.</p>
+        </div>
+        <div class="pair">
+          <h3>Fund where others don't yet</h3>
+          <p class="theirs">Capable local actors in countries that receive little clean-air funding.</p>
+          <p>My whole career has been with local organisations in places donors overlook, from Tana River County to Yumbe District.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="playbook">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Awardee Onboarding Playbook, first outline</h2>
+        <p class="lede">The deliverable meant to outlast the contract. This is how I'd structure it before week one; I'd shape it with the Project Manager and fill it from how the team actually works.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Award notice and welcome pack<span class="t">Days 0–5</span></h3>
+          <dl><dt>Does</dt><dd>Welcome email, named contacts, document checklist for agreement and payment setup.</dd>
+          <dt>Template</dt><dd>Welcome email; document checklist</dd>
+          <dt>Decision</dt><dd>Are entity and banking documents complete enough to start the agreement?</dd></dl>
+        </li>
+        <li>
+          <h3>Background brief<span class="t">Days 3–15</span></h3>
+          <dl><dt>Does</dt><dd>One-page profile: registration, size, prior funding, support structures, country context.</dd>
+          <dt>Template</dt><dd>Awardee brief</dd>
+          <dt>Decision</dt><dd>Anything the Project Manager should know before contracting?</dd></dl>
+        </li>
+        <li>
+          <h3>Grant agreement<span class="t">Days 10–30</span></h3>
+          <dl><dt>Does</dt><dd>Coordinate drafting and signature with EPIC and University of Chicago offices; log status daily in the tracker.</dd>
+          <dt>Template</dt><dd>Agreement cover note; status log</dd>
+          <dt>Decision</dt><dd>Escalate any term the awardee questions.</dd></dl>
+        </li>
+        <li>
+          <h3>Kick-off meeting<span class="t">Days 20–40</span></h3>
+          <dl><dt>Does</dt><dd>Walk through the agreement, reporting calendar, invoicing and open-data expectations; agree how we'll communicate.</dd>
+          <dt>Template</dt><dd>Kick-off agenda; reporting calendar</dd>
+          <dt>Decision</dt><dd>Any early risks to log?</dd></dl>
+        </li>
+        <li>
+          <h3>First invoice<span class="t">Days 30–45</span></h3>
+          <dl><dt>Does</dt><dd>Check amount, schedule, banking details and supporting documents against award terms before it goes to the admin office.</dd>
+          <dt>Template</dt><dd>Invoice checklist; correction request</dd>
+          <dt>Decision</dt><dd>Approve for processing, or return with specific fixes.</dd></dl>
+        </li>
+        <li>
+          <h3>Orientation and community<span class="t">Month 2</span></h3>
+          <dl><dt>Does</dt><dd>Cohort orientation, introduction to AirWatch and the webinar calendar, peer introductions.</dd>
+          <dt>Template</dt><dd>Orientation deck; FAQ</dd>
+          <dt>Decision</dt><dd>Which awardees need extra support?</dd></dl>
+        </li>
+        <li>
+          <h3>Reporting rhythm<span class="t">Month 9 and month 18</span></h3>
+          <dl><dt>Does</dt><dd>Reminders at 30, 14 and 3 days; completeness check on arrival; follow-ups on gaps.</dd>
+          <dt>Template</dt><dd>Reminder series; completeness checklist</dd>
+          <dt>Decision</dt><dd>Escalate substantive issues to the Project Manager and M&amp;E Senior Analyst.</dd></dl>
+        </li>
+        <li>
+          <h3>Renewal preparation<span class="t">Months 14–16</span></h3>
+          <dl><dt>Does</dt><dd>Assemble the initial assessment and background material from tracker, reports and correspondence.</dd>
+          <dt>Template</dt><dd>Renewal brief</dd>
+          <dt>Decision</dt><dd>None for me. The team decides; I make sure they have what they need.</dd></dl>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="library">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Standard-response library, working sample</h2>
+        <p class="lede">With 70 organisations writing in, most emails will be variations on a dozen questions. A shared library keeps answers fast, consistent and still personal. Search it, pick one, copy it.</p>
+      </div>
+      <div class="lib">
+        <div class="lib-list">
+          <div class="lib-search">
+            <label for="q" style="position:absolute;left:-9999px">Search responses</label>
+            <input id="q" type="search" placeholder="Search, for example invoice or extension" autocomplete="off">
+          </div>
+          <ul class="lib-items" id="lib-items"></ul>
+        </div>
+        <div class="lib-view" id="lib-view" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai">
+    <div class="wrap">
+      <div class="prose">
+        <h2>How I use AI, and where I stop it</h2>
+        <p class="lede">You asked for comfort using AI appropriately and ethically to streamline repetitive work. That means it handles first drafts and checking, while people make every judgement.</p>
+      </div>
+      <table class="ai-table">
+        <thead><tr><th>Task</th><th>AI does</th><th>I do</th><th>Never handed to AI</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Report completeness checks</th>
+            <td data-h="AI does">Compares a narrative report to the reporting template and lists missing or thin sections.</td>
+            <td data-h="I do">Read the report myself, confirm each gap, write the follow-up.</td>
+            <td data-h="Never handed to AI">Any view on awardee performance or standing.</td></tr>
+          <tr><th scope="row">Awardee correspondence</th>
+            <td data-h="AI does">Drafts from the response library; first-pass French, Spanish or Portuguese for awardees who prefer them.</td>
+            <td data-h="I do">Edit tone and facts for each awardee; have important translations checked by a fluent speaker.</td>
+            <td data-h="Never handed to AI">Sending anything without a human read.</td></tr>
+          <tr><th scope="row">Background research</th>
+            <td data-h="AI does">Summarises public information on an organisation, with links to sources.</td>
+            <td data-h="I do">Check every fact against its source before it enters a brief.</td>
+            <td data-h="Never handed to AI">Unverified claims in renewal or onboarding material.</td></tr>
+          <tr><th scope="row">Tracker and data cleaning</th>
+            <td data-h="AI does">Writes Excel formulas; flags duplicates, impossible dates and outliers.</td>
+            <td data-h="I do">Spot-check results and fix the source data.</td>
+            <td data-h="Never handed to AI">Invoice approval or payment decisions.</td></tr>
+          <tr><th scope="row">Newsletter and impact summaries</th>
+            <td data-h="AI does">Condenses awardee updates into short AirWatch drafts.</td>
+            <td data-h="I do">Confirm wording with the awardee before publication.</td>
+            <td data-h="Never handed to AI">Quotes or results the awardee hasn't approved.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="rules">
+        <h3>Ground rules</h3>
+        <p>Use only the AI tools the University of Chicago approves, under its data policies.</p>
+        <p>Keep banking details, personal data and confidential financials out of AI tools that aren't approved for them.</p>
+        <p>A person makes every determination on payments, performance and renewals.</p>
+        <p>Say when AI helped, if anyone asks.</p>
+      </div>
+
+      <div class="made">
+        <h3>How this page was made</h3>
+        <p>I built this site with Claude, an AI assistant, in one working session. I gave it your scope of work, my CV, my application answers and my existing portfolio. It drafted the structure, the code and the tracker logic. I supplied every fact and checked every claim. That's the split I'd use on the job: AI takes the repetitive build, and I stay accountable for what goes out.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="plan">
+    <div class="wrap">
+      <div class="prose">
+        <h2>The six months, as I'd plan them</h2>
+        <p class="lede">Onboarding load peaks early, so systems come first. Then the contract ends with a hand-over the team can run without me. The bars show where I expect the workload to peak.</p>
+      </div>
+      <div class="months">
+        <div class="month"><h3>Month 1<span>Learn and set up</span></h3><div class="surge" style="opacity:.75"></div>
+          <ul><li>Shadow the shared inbox</li><li>Build the master tracker from current award data</li><li>Support first 2026 kick-offs</li></ul></div>
+        <div class="month"><h3>Month 2<span>Onboarding peak</span></h3><div class="surge" style="opacity:1"></div>
+          <ul><li>Agreements and first invoices</li><li>Playbook draft one</li><li>Response library from top inbox questions</li></ul></div>
+        <div class="month"><h3>Month 3<span>Orientation</span></h3><div class="surge" style="opacity:.85"></div>
+          <ul><li>Cohort orientation sessions</li><li>First webinar at the larger cadence</li><li>Tracker prompts in weekly team rhythm</li></ul></div>
+        <div class="month"><h3>Month 4<span>Reporting cycle</span></h3><div class="surge" style="opacity:.65"></div>
+          <ul><li>Completeness reviews for due reports</li><li>M&amp;E data-gap follow-ups</li><li>AirWatch contributions</li></ul></div>
+        <div class="month"><h3>Month 5<span>Renewals and impact</span></h3><div class="surge" style="opacity:.5"></div>
+          <ul><li>Renewal background material</li><li>Awardee impact summaries</li><li>Workflow improvement proposals</li></ul></div>
+        <div class="month"><h3>Month 6<span>Hand-over</span></h3><div class="surge" style="opacity:.35"></div>
+          <ul><li>Playbook final version</li><li>Walk-through with the team</li><li>Lessons-learned note</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="background">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Background</h2>
+      </div>
+      <div class="bg-grid">
+        <ul class="roles">
+          <li><span class="yr">2023–2026</span><div><b>Global Climate Intersections Lead</b><span class="o">NetHope, remote</span><p>Directed grant management for a $1.5M+ annual climate portfolio: 23+ awardees in 7 countries, 100% donor compliance, 95%+ budget adherence.</p></div></li>
+          <li><span class="yr">2020–2023</span><div><b>Programme Manager, Connected Farmer</b><span class="o">Mezzanineware (Vodacom Group), remote</span><p>15+ partner organisations and 250,000+ farmers across Kenya, Uganda and Tanzania. Secured $2M+ in continued programme investment.</p></div></li>
+          <li><span class="yr">2019–2020</span><div><b>Country Manager, Agri-wallet Rwanda</b><span class="o">Dodore Limited, Kigali</span><p>Built country operations from scratch, with trackers, checklists and SOPs for partner management.</p></div></li>
+          <li><span class="yr">2014–2019</span><div><b>Programme Manager and Business Development</b><span class="o">Dodore Limited, Nairobi</span><p>Agri-wallet and the M-Tiba digital health finance pilot.</p></div></li>
+        </ul>
+        <div class="side">
+          <h3>Countries I've worked with</h3>
+          <ul class="countries">
+            <li>Kenya</li><li>Uganda</li><li>Nigeria</li><li>Mali</li><li>Tanzania</li><li>Rwanda</li><li>Benin</li><li>Philippines</li><li>Nepal</li><li>Bangladesh</li>
+          </ul>
+          <h3>Credentials</h3>
+          <ul>
+            <li>PRINCE2 Foundation and Practitioner</li>
+            <li>Climatebase Fellow, Cohort 9 (2026)</li>
+            <li>YALI East Africa Fellow (2017)</li>
+            <li>Certified Carbon Management Leader, in progress</li>
+            <li>BBA, Makerere University</li>
+            <li>English and Swahili</li>
+          </ul>
+          <h3>Selected work</h3>
+          <ul>
+            <li><a href="https://www.itu.int/en/ITU-D/Emergency-Telecommunications/Pages/Publications/ai-ew4all-report.aspx">AI for early warning, ITU, WMO, UNDRR and IFRC report</a> (contributor and peer reviewer)</li>
+            <li><a href="https://nethope.org/articles/empowering-climate-champions-meet-our-year-3-grant-recipients/">Year 3 grant recipients announcement</a></li>
+            <li><a href="https://nethope.org/articles/cop29-a-dedicated-focus-on-digital-solutions-and-the-need-for-amplifying-the-voices-of-those-on-the-forefront-of-climate-change/">COP29 article, NetHope</a></li>
+            <li><a href="https://nethope.org/people/gidraf-wachira/">NetHope profile</a></li>
+            <li><a href="https://gidrafwachira.github.io/">Full portfolio</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Available now for the full six months</h2>
+    <p class="lede prose">About 20 days a month, inside your 12:00–16:30 CET core hours. References from NetHope and Connected Farmer are in my CV and available on request.</p>
+    <div class="contact">
+      <a class="btn" href="mailto:gidrafwachira86@gmail.com">Email gidrafwachira86@gmail.com</a>
+      <a class="btn ghost" href="https://www.calendly.com/gidrafwachira">Book a call</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/gidrafwachira">LinkedIn</a>
+    </div>
+    <p class="fine">Prepared for the EPIC Air Quality Fund Grants Management Support interview, October 2026. Awardees in the tracker and response library are fictional samples, not EPIC data. Fund facts come from EPIC's published materials. <button type="button" class="theme-toggle" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dlg-title">
+  <div class="dlg-h"><h3 id="dlg-title">Draft</h3><p id="dlg-sub"></p></div>
+  <div class="dlg-b"><label for="dlg-text" style="position:absolute;left:-9999px">Draft message</label><textarea id="dlg-text"></textarea></div>
+  <div class="dlg-f"><span class="note">Filled from the response library. Edit before sending.</span><button type="button" class="small-btn" id="dlg-copy">Copy text</button><button type="button" class="btn" id="dlg-close">Close</button></div>
+</dialog>
+
+<script>
+(function(){
+  "use strict";
+  var DAY = 864e5;
+  var today = new Date(); today.setHours(0,0,0,0);
+  function add(d,n){ return new Date(d.getTime() + n*DAY); }
+  function fmt(d){ return d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}); }
+  function diff(d){ return Math.round((d - today)/DAY); }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+
+  // Milestone template for an 18-month award (offsets in days from award start)
+  var PLAN = [
+    {k:"agreement", n:"Grant agreement signed", o:-7},
+    {k:"kickoff",   n:"Kick-off meeting", o:14},
+    {k:"inv1",      n:"Invoice, tranche 1", o:30},
+    {k:"orient",    n:"Cohort orientation", o:45},
+    {k:"interim",   n:"Interim narrative and financial report", o:270},
+    {k:"inv2",      n:"Invoice, tranche 2", o:290},
+    {k:"renewal",   n:"Renewal background brief", o:450},
+    {k:"end",       n:"Award end date", o:548},
+    {k:"final",     n:"Final 18-month report", o:578}
+  ];
+
+  // Fictional sample awardees. start = days from today; open = past milestones not yet complete
+  var AW = [
+    {name:"Lakeside Clean Air Network", country:"Malawi", cohort:"2026", contact:"Grace", start:-12, open:["inv1"]},
+    {name:"Sahel Air Observatory", country:"Chad", cohort:"2026", contact:"Idriss", start:-4, open:[]},
+    {name:"Andes Breathing Project", country:"Bolivia", cohort:"2026", contact:"Lucía", start:9, open:["agreement"]},
+    {name:"Delta Air Monitors Collective", country:"Bangladesh", cohort:"2026", contact:"Farhana", start:21, open:[]},
+    {name:"Highlands Environmental Trust", country:"Ethiopia", cohort:"2026", contact:"Selam", start:33, open:[]},
+    {name:"Coastal Air Watch", country:"Côte d'Ivoire", cohort:"2025", contact:"Aya", start:-262, open:[]},
+    {name:"Valley Clean Air Initiative", country:"Nepal", cohort:"2025", contact:"Bikash", start:-280, open:["interim"]},
+    {name:"Riverside Health and Air Lab", country:"DR Congo", cohort:"2025", contact:"Patrice", start:-301, open:["inv2"]},
+    {name:"Mekong Air Data Hub", country:"Laos", cohort:"2025", contact:"Somchai", start:-418, open:[]},
+    {name:"Pampas Air Project", country:"Paraguay", cohort:"2025", contact:"Diego", start:-472, open:[]}
+  ];
+
+  AW.forEach(function(a){
+    a.startDate = add(today, a.start);
+    a.ms = PLAN.map(function(p){
+      var d = add(a.startDate, p.o), dd = diff(d), st;
+      if (dd < 0) st = a.open.indexOf(p.k) > -1 ? "late" : "done";
+      else st = dd <= 30 ? "soon" : "later";
+      return {k:p.k, n:p.n, date:d, days:dd, st:st};
+    });
+    a.next = a.ms.filter(function(m){ return m.st !== "done"; }).sort(function(x,y){ return x.date - y.date; })[0];
+  });
+
+  var state = {win:"90", cohort:"all"};
+
+  function chip(m){
+    if (m.st === "late") return '<span class="chip late">' + (-m.days) + (m.days === -1 ? " day" : " days") + ' overdue</span>';
+    if (m.days === 0) return '<span class="chip soon">Today</span>';
+    var t = "In " + m.days + (m.days === 1 ? " day" : " days");
+    return '<span class="chip ' + (m.st === "soon" ? "soon" : "later") + '">' + t + '</span>';
+  }
+  function actionLabel(m){
+    if (m.st === "late") return m.k.indexOf("inv") === 0 ? "Chase invoice" : (m.k === "agreement" ? "Chase signature" : "Escalate");
+    return ({agreement:"Send agreement", kickoff:"Schedule kick-off", inv1:"Invoice reminder", inv2:"Invoice reminder", orient:"Send invite", interim:"Report reminder", final:"Report reminder", renewal:"Start brief", end:"Close-out note"})[m.k] || "Draft";
+  }
+
+  function lane(a){
+    var s = add(a.startDate,-7), e = add(a.startDate,578), span = e - s;
+    var pos = function(d){ return Math.max(0, Math.min(100, (d - s)/span*100)); };
+    var t = pos(today);
+    var h = '<div class="lane" role="img" aria-label="Award timeline, ' + a.ms.filter(function(m){return m.st==="done";}).length + ' of ' + a.ms.length + ' milestones done"><div class="bar"></div><div class="elapsed" style="width:' + t + '%"></div>';
+    a.ms.forEach(function(m){ h += '<span class="dot ' + m.st + '" style="left:' + pos(m.date) + '%" title="' + esc(m.n + ", " + fmt(m.date)) + '"></span>'; });
+    return h + '<span class="today" style="left:' + t + '%"></span></div>';
+  }
+
+  function render(){
+    var rows = AW.filter(function(a){
+      if (state.cohort !== "all" && a.cohort !== state.cohort) return false;
+      if (!a.next) return false;
+      if (state.win === "all") return true;
+      return a.next.days <= +state.win;
+    }).sort(function(x,y){ return x.next.date - y.next.date; });
+
+    var body = document.getElementById("tk-body");
+    if (!rows.length){ body.innerHTML = '<tr><td colspan="5" class="empty">Nothing due in this window. Widen it to see later milestones.</td></tr>'; }
+    else body.innerHTML = rows.map(function(a){
+      var i = AW.indexOf(a);
+      return '<tr><td class="org">' + esc(a.name) + '<small>' + esc(a.country) + ', ' + (a.cohort === "2026" ? "2026 cohort" : "earlier cohort") + '</small></td>' +
+        '<td>' + esc(a.next.n) + '</td>' +
+        '<td class="when">' + chip(a.next) + '<small>' + fmt(a.next.date) + '</small></td>' +
+        '<td class="c-lane">' + lane(a) + '</td>' +
+        '<td class="c-act"><button type="button" class="act" data-i="' + i + '">' + actionLabel(a.next) + '</button></td></tr>';
+    }).join("");
+
+    var pool = AW.filter(function(a){ return state.cohort === "all" || a.cohort === state.cohort; });
+    var late = 0, fort = 0;
+    pool.forEach(function(a){ a.ms.forEach(function(m){ if (m.st === "late") late++; else if (m.days >= 0 && m.days <= 14) fort++; }); });
+    document.getElementById("tk-summary").innerHTML = "As of <strong>" + fmt(today) + "</strong>: <strong>" + late + " overdue</strong> " + (late === 1 ? "item" : "items") + " to escalate and <strong>" + fort + "</strong> " + (fort === 1 ? "milestone" : "milestones") + " in the next 14 days across " + pool.length + " awardees.";
+  }
+
+  document.querySelectorAll(".seg button").forEach(function(b){
+    b.addEventListener("click", function(){
+      state.win = b.dataset.win;
+      document.querySelectorAll(".seg button").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+      render();
+    });
+  });
+  document.getElementById("cohort").addEventListener("change", function(e){ state.cohort = e.target.value; render(); });
+
+  document.getElementById("csv").addEventListener("click", function(){
+    var lines = [["Awardee","Country","Cohort","Milestone","Date","Days from today","Status"]];
+    AW.forEach(function(a){ a.ms.forEach(function(m){
+      lines.push([a.name, a.country, a.cohort === "2026" ? "2026" : "Earlier", m.n, m.date.toISOString().slice(0,10), m.days, {done:"Done",late:"Overdue",soon:"Due within 30 days",later:"Scheduled"}[m.st]]);
+    }); });
+    var csv = lines.map(function(r){ return r.map(function(c){ c = String(c); return /[",]/.test(c) ? '"' + c.replace(/"/g,'""') + '"' : c; }).join(","); }).join("\r\n");
+    var url = URL.createObjectURL(new Blob(["﻿" + csv], {type:"text/csv;charset=utf-8"}));
+    var link = document.createElement("a"); link.href = url; link.download = "sample-awardee-tracker.csv";
+    document.body.appendChild(link); link.click(); link.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  });
+
+  // Response library
+  var LIB = [
+    {id:"report-30", t:"Report reminder, 30 days", tags:"interim final narrative financial report deadline reminder", use:"Sent a month before any interim or final report is due.",
+     body:"Dear {contact},\n\nI hope the work in {country} is going well. A reminder that your {milestone} is due on {date}, 30 days from today.\n\nThe template and a short checklist are attached. If anything might delay the report, please tell me early. It's much easier to plan around a delay we know about.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"report-late", t:"Report overdue, gentle follow-up", tags:"overdue late report escalate follow up", use:"A few days after a missed deadline, before escalating.",
+     body:"Dear {contact},\n\nWe haven't yet received your {milestone}, which was due on {date}. I know field schedules shift, so I wanted to check in.\n\nCould you let me know by the end of this week when we can expect it, or whether there's something we can help with? If you need more time, tell me how much and why, and I'll take it to the team.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"inv-fix", t:"Invoice returned for correction", tags:"invoice tranche payment correction banking", use:"When an invoice doesn't match the award terms.",
+     body:"Dear {contact},\n\nThank you for sending your invoice for {milestone}. Before we can pass it to the University of Chicago for payment, we need a small change:\n\n- [Specific item, for example: amount should match the tranche in Schedule B]\n\nOnce I have the revised version, I'll send it straight on. Payment usually follows within [X] working days of approval.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"inv-remind", t:"Invoice reminder", tags:"invoice tranche payment reminder", use:"Ahead of a scheduled tranche.",
+     body:"Dear {contact},\n\nYour {milestone} falls on {date}. To keep payment on schedule, please send your invoice with the supporting documents listed in your agreement.\n\nIf your banking details have changed since your last invoice, tell me before sending, so we can update our records first.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"inv-late", t:"Invoice not yet received", tags:"invoice overdue late tranche payment", use:"When a scheduled invoice hasn't arrived.",
+     body:"Dear {contact},\n\nYour {milestone} was scheduled for {date}, and we haven't received the invoice yet. Is anything holding it up?\n\nIf it would help, I can walk you through the supporting documents your agreement asks for. Once it's in, I'll pass it to the University of Chicago straight away so payment isn't delayed further.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"agreement", t:"Grant agreement for signature", tags:"agreement contract signature onboarding", use:"Sending the agreement to a new awardee.",
+     body:"Dear {contact},\n\nCongratulations again on your award. Attached is your grant agreement for signature.\n\nPlease read it closely, especially the reporting calendar and invoicing schedule. If any term raises a question, reply here and I'll get you an answer from the team before you sign.\n\nWe'd like the signed copy back by {date} so we can schedule your kick-off.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"kickoff", t:"Kick-off meeting invitation", tags:"kickoff kick-off meeting onboarding schedule", use:"Once the agreement is signed.",
+     body:"Dear {contact},\n\nWith your agreement in place, let's schedule your kick-off. It takes about an hour and covers:\n\n1. Your project plan and first three months\n2. Reporting and invoicing calendar\n3. Open data sharing\n4. How we'll stay in touch\n\nCould you share two or three times that suit you in the week of {date}? Our team is available 12:00 to 16:30 CET.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"extension", t:"Request for more time", tags:"extension delay no-cost timeline", use:"When an awardee asks to extend a deadline or the project.",
+     body:"Dear {contact},\n\nThank you for telling us early. So I can bring this to the team, could you send:\n\n- The new date you're proposing\n- What caused the delay\n- Any effect on budget or planned activities\n\nI'll come back to you with the team's answer as soon as I can.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"budget", t:"Moving money between budget lines", tags:"budget reallocation flexible lines change", use:"The Fund is built to be flexible about this.",
+     body:"Dear {contact},\n\nThanks for flagging this. The Fund is designed to be flexible when needs change on the ground.\n\nPlease send the revised budget with a short note on what's moving and why. I'll confirm with the team that nothing else needs to change and get back to you.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"data", t:"Open data question", tags:"data open sharing license cc-by platform", use:"Awardees asking about data-sharing requirements.",
+     body:"Dear {contact},\n\nGood question. Awardees own their data. The Fund asks that it be shared openly, under terms compatible with a CC-BY-4.0 licence, on a freely accessible platform where it can be found alongside other global datasets.\n\nI'll connect you with our team for the technical setup.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"airwatch", t:"AirWatch content request", tags:"airwatch newsletter story content communications", use:"Collecting awardee news for the monthly newsletter.",
+     body:"Dear {contact},\n\nWe'd love to feature your work in the next AirWatch. Could you send by {date}:\n\n- Two or three sentences on a recent milestone\n- A photo, with permission to publish and a credit line\n- Any upcoming event others should know about\n\nI'll share the draft with you before it goes out.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"webinar", t:"Awardee webinar invitation", tags:"webinar event networking learning", use:"Promoting a peer-learning session.",
+     body:"Dear {contact},\n\nYou're invited to our next awardee webinar on {date}. Awardees will share what they've learned from [topic], with time for questions.\n\nIf you have an experience you'd like to present at a future session, reply and I'll add you to the list.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"renewal", t:"What renewal involves", tags:"renewal extension next award long term", use:"Awardees asking about renewal.",
+     body:"Dear {contact},\n\nAwards run for 18 months and can be renewed up to two times, depending on performance and available funds.\n\nAround month 15 I'll gather your reports and our records into background material for the team's review. The decision rests with the team. If there's anything you'd like them to know, send it to me and I'll include it.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"},
+    {id:"contact", t:"Change of main contact", tags:"contact person staff change handover", use:"When an awardee's lead person changes.",
+     body:"Dear {contact},\n\nThank you for letting us know. Could you confirm the new contact's name, role and email, and the date the change takes effect?\n\nI'll update our records and send them a short welcome with your reporting calendar, so nothing is missed in the hand-over.\n\nWith best wishes,\nGidraf\nEPIC Air Quality Fund"}
+  ];
+
+  var sel = LIB[0].id;
+  function fill(body, a, m){
+    return body.replace(/\{contact\}/g, a ? a.contact : "[Name]")
+               .replace(/\{country\}/g, a ? a.country : "[country]")
+               .replace(/\{milestone\}/g, m ? m.n.toLowerCase() : "[report or invoice]")
+               .replace(/\{date\}/g, m ? fmt(m.date) : "[date]");
+  }
+  function renderLib(){
+    var q = document.getElementById("q").value.trim().toLowerCase();
+    var items = LIB.filter(function(x){ return !q || (x.t + " " + x.tags + " " + x.body).toLowerCase().indexOf(q) > -1; });
+    var ul = document.getElementById("lib-items");
+    if (!items.length){ ul.innerHTML = '<li class="empty">No match. Try invoice, report or extension.</li>'; }
+    else {
+      if (!items.some(function(x){ return x.id === sel; })) sel = items[0].id;
+      ul.innerHTML = items.map(function(x){ return '<li><button type="button" data-id="' + x.id + '" aria-current="' + (x.id === sel) + '">' + esc(x.t) + '<small>' + esc(x.use) + '</small></button></li>'; }).join("");
+    }
+    var cur = LIB.filter(function(x){ return x.id === sel; })[0];
+    document.getElementById("lib-view").innerHTML = items.length ? '<h3>' + esc(cur.t) + '</h3><p class="meta">' + esc(cur.use) + '</p><pre id="lib-text">' + esc(fill(cur.body)) + '</pre><div class="row"><button type="button" class="small-btn" id="lib-copy">Copy text</button><span id="lib-msg" aria-live="polite"></span></div>' : "";
+  }
+  document.getElementById("q").addEventListener("input", renderLib);
+  document.getElementById("lib-items").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return; sel = b.dataset.id; renderLib();
+  });
+  function copy(text, done){
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ done(false); });
+    else done(false);
+  }
+  document.getElementById("lib-view").addEventListener("click", function(e){
+    if (e.target.id !== "lib-copy") return;
+    copy(document.getElementById("lib-text").textContent, function(ok){ document.getElementById("lib-msg").textContent = ok === false ? "Select the text and copy it manually." : "Copied."; });
+  });
+
+  // Tracker action -> draft
+  var MAP = {agreement:"agreement", kickoff:"kickoff", inv1:"inv-remind", inv2:"inv-remind", orient:"webinar", interim:"report-30", final:"report-30", renewal:"renewal", end:"contact"};
+  var dlg = document.getElementById("dlg");
+  document.getElementById("tk-body").addEventListener("click", function(e){
+    var b = e.target.closest(".act"); if (!b) return;
+    var a = AW[+b.dataset.i], m = a.next;
+    var id = m.st === "late" ? (m.k.indexOf("inv") === 0 ? "inv-late" : (m.k === "agreement" ? "agreement" : "report-late")) : MAP[m.k];
+    var tpl = LIB.filter(function(x){ return x.id === id; })[0];
+    document.getElementById("dlg-title").textContent = actionLabel(m) + ": " + a.name;
+    document.getElementById("dlg-sub").textContent = m.n + ", " + fmt(m.date) + (m.st === "late" ? ". Overdue, so I'd also flag it to the Project Manager." : ".");
+    document.getElementById("dlg-text").value = fill(tpl.body, a, m);
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open","");
+  });
+  document.getElementById("dlg-close").addEventListener("click", function(){ dlg.close ? dlg.close() : dlg.removeAttribute("open"); });
+  document.getElementById("dlg-copy").addEventListener("click", function(){
+    var btn = this; copy(document.getElementById("dlg-text").value, function(ok){ btn.textContent = ok === false ? "Copy manually" : "Copied"; setTimeout(function(){ btn.textContent = "Copy text"; }, 1600); });
+  });
+
+  // Theme toggle
+  var root = document.documentElement;
+  try { var saved = localStorage.getItem("theme"); if (saved) root.setAttribute("data-theme", saved); } catch(e){}
+  document.getElementById("theme").addEventListener("click", function(){
+    var dark = root.getAttribute("data-theme") ? root.getAttribute("data-theme") === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    var next = dark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch(e){}
+  });
+
+  render(); renderLib();
+})();
+</script>
+</body>
+</html>
