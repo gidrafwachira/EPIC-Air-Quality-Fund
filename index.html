@@ -65,7 +65,7 @@ section{padding:72px 0;border-top:1px solid var(--rule)}
 @media (max-width:860px){.top nav{display:none}}
 
 /* hero */
-.hero{padding:64px 0 24px;border-top:0}
+.hero{padding:64px 0 72px;border-top:0}
 .hero h1{font-size:clamp(1.95rem,5.6vw,4rem);font-weight:800;letter-spacing:-.035em;max-width:17ch}
 .hero .lede{margin-top:20px;max-width:60ch}
 .hours{margin:16px 0 0;color:var(--muted);font-size:.95rem}
@@ -87,7 +87,7 @@ section{padding:72px 0;border-top:1px solid var(--rule)}
 .btn:hover{filter:brightness(1.08)}
 
 /* tracker */
-.tracker{margin-top:56px;background:var(--surface);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.tracker{margin-top:0;background:var(--surface);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
 .tk-head{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;padding:20px 22px 16px;border-bottom:1px solid var(--rule)}
 .tk-head h2{font-size:1.25rem;margin:0}
 .tk-head p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
@@ -262,8 +262,8 @@ footer h2{max-width:20ch}
     <nav aria-label="Sections">
       <a href="#numbers">Numbers</a>
       <a href="#playbook">Playbook</a>
-      <a href="#tracker">Tracker</a>
       <a href="#scope">Scope of work</a>
+      <a href="#tracker">Tracker</a>
       <a href="#library">Responses</a>
       <a href="#ai">AI</a>
       <a href="#background">Background</a>
@@ -373,47 +373,6 @@ footer h2{max-width:20ch}
         </ol>
       </div>
 
-      <div class="tracker" id="tracker" aria-labelledby="tk-title">
-        <div class="tk-head">
-          <div>
-            <h2 id="tk-title">Master awardee tracker, working sample</h2>
-            <p>Key dates across the award cycle, turned into the next action for the team. Fictional awardees, dated relative to today.</p>
-          </div>
-          <div class="controls">
-            <div class="seg" role="group" aria-label="Show actions due within">
-              <button type="button" data-win="30" aria-pressed="false">30 days</button>
-              <button type="button" data-win="90" aria-pressed="true">90 days</button>
-              <button type="button" data-win="all" aria-pressed="false">All</button>
-            </div>
-            <label class="sr" style="position:absolute;left:-9999px" for="cohort">Cohort</label>
-            <select id="cohort">
-              <option value="all">Both cohorts</option>
-              <option value="2026">2026 cohort</option>
-              <option value="2025">Earlier cohort</option>
-            </select>
-            <button type="button" class="small-btn" id="csv">Download CSV</button>
-          </div>
-        </div>
-        <div class="tk-summary" id="tk-summary" aria-live="polite"></div>
-        <div class="scroll">
-          <table class="tk-table">
-            <thead>
-              <tr><th>Awardee</th><th>Next milestone</th><th>Due</th><th>18-month award</th><th><span style="position:absolute;left:-9999px">Action</span></th></tr>
-            </thead>
-            <tbody id="tk-body"></tbody>
-          </table>
-        </div>
-        <div class="tk-foot">
-          <div class="legend" aria-label="Legend">
-            <span><i style="background:var(--done)"></i>Done</span>
-            <span><i style="background:var(--late)"></i>Overdue</span>
-            <span><i style="background:var(--due)"></i>Due within 30 days</span>
-            <span><i style="background:var(--rule);border:1.5px solid var(--muted)"></i>Scheduled</span>
-            <span><i style="background:var(--ink);border-radius:1px;width:2px;height:12px"></i>Today</span>
-          </div>
-          <span>In the role I'd build this in Excel or your existing tool. The logic is the same.</span>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -552,6 +511,52 @@ footer h2{max-width:20ch}
           <h3>Fund where others don't yet</h3>
           <p class="theirs">Capable local actors in countries that receive little clean-air funding.</p>
           <p>My whole career has been with local organisations in places donors overlook, from Tana River County to Yumbe District.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tracker-section">
+    <div class="wrap">
+      <div class="tracker" id="tracker" aria-labelledby="tk-title">
+        <div class="tk-head">
+          <div>
+            <h2 id="tk-title">Master awardee tracker, working sample</h2>
+            <p>Key dates across the award cycle, turned into the next action for the team. Fictional awardees, dated relative to today.</p>
+          </div>
+          <div class="controls">
+            <div class="seg" role="group" aria-label="Show actions due within">
+              <button type="button" data-win="30" aria-pressed="false">30 days</button>
+              <button type="button" data-win="90" aria-pressed="true">90 days</button>
+              <button type="button" data-win="all" aria-pressed="false">All</button>
+            </div>
+            <label class="sr" style="position:absolute;left:-9999px" for="cohort">Cohort</label>
+            <select id="cohort">
+              <option value="all">Both cohorts</option>
+              <option value="2026">2026 cohort</option>
+              <option value="2025">Earlier cohort</option>
+            </select>
+            <button type="button" class="small-btn" id="csv">Download CSV</button>
+          </div>
+        </div>
+        <div class="tk-summary" id="tk-summary" aria-live="polite"></div>
+        <div class="scroll">
+          <table class="tk-table">
+            <thead>
+              <tr><th>Awardee</th><th>Next milestone</th><th>Due</th><th>18-month award</th><th><span style="position:absolute;left:-9999px">Action</span></th></tr>
+            </thead>
+            <tbody id="tk-body"></tbody>
+          </table>
+        </div>
+        <div class="tk-foot">
+          <div class="legend" aria-label="Legend">
+            <span><i style="background:var(--done)"></i>Done</span>
+            <span><i style="background:var(--late)"></i>Overdue</span>
+            <span><i style="background:var(--due)"></i>Due within 30 days</span>
+            <span><i style="background:var(--rule);border:1.5px solid var(--muted)"></i>Scheduled</span>
+            <span><i style="background:var(--ink);border-radius:1px;width:2px;height:12px"></i>Today</span>
+          </div>
+          <span>In the role I'd build this in Excel or your existing tool. The logic is the same.</span>
         </div>
       </div>
     </div>
