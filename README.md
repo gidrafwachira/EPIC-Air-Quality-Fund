@@ -2,10 +2,9 @@
 
 A one-page portfolio prepared for the EPIC Air Quality Fund **Grants Management Support** interview (October 2026).
 
-It maps the contract's scope of work to my experience and includes working samples of the deliverables:
+It opens with my grantmaking numbers and my onboarding and continuous support playbook, then maps the contract's scope of work to my experience. It includes working samples of the deliverables:
 
 - **Master awardee tracker:** milestones across an 18-month award, turned into next actions, with drafted follow-up emails and a CSV export.
-- **Awardee Onboarding Playbook:** a first outline.
 - **Standard-response library:** searchable templates you can copy.
 - **AI workflows:** what AI does, what I check, and what is never handed to AI.
 - **Six-month plan.**

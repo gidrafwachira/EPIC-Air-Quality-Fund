@@ -68,15 +68,26 @@ section{padding:72px 0;border-top:1px solid var(--rule)}
 .hero{padding:64px 0 24px;border-top:0}
 .hero h1{font-size:clamp(1.95rem,5.6vw,4rem);font-weight:800;letter-spacing:-.035em;max-width:17ch}
 .hero .lede{margin-top:20px;max-width:60ch}
-.facts{display:flex;flex-wrap:wrap;gap:8px 36px;margin:28px 0 0;padding:0;list-style:none;color:var(--muted);font-size:.95rem}
-.facts b{color:var(--ink);font-weight:700;font-size:1.05rem;margin-right:4px}
+.hours{margin:16px 0 0;color:var(--muted);font-size:.95rem}
+.numbers{margin-top:56px;padding-top:28px;border-top:2px solid var(--ink)}
+.numbers h2,.playbook h2{font-size:clamp(1.4rem,2.6vw,1.8rem)}
+.num-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:20px 0 0}
+.num-row div{padding:4px 20px 4px 0;border-right:1px solid var(--rule)}
+.num-row div+div{padding-left:20px}
+.num-row div:last-child{border-right:0}
+.num-row dd{margin:0;font-size:clamp(1.5rem,3vw,2.3rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;order:-1}
+.num-row div{display:flex;flex-direction:column;gap:6px}
+.num-row dt{color:var(--muted);font-size:.9rem}
+.num-countries{margin:22px 0 0}
+@media (max-width:860px){.num-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 0}.num-row div,.num-row div+div{padding:0 16px 0 0;border:0}}
+.playbook{margin-top:56px;padding-top:28px;border-top:2px solid var(--ink)}
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:.95rem;font-weight:600;padding:10px 18px;border-radius:6px;border:1px solid var(--sky);background:var(--sky);color:var(--paper);text-decoration:none;cursor:pointer}
 .btn.ghost{background:transparent;color:var(--sky)}
 .btn:hover{filter:brightness(1.08)}
 
 /* tracker */
-.tracker{margin-top:44px;background:var(--surface);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.tracker{margin-top:56px;background:var(--surface);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
 .tk-head{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;padding:20px 22px 16px;border-bottom:1px solid var(--rule)}
 .tk-head h2{font-size:1.25rem;margin:0}
 .tk-head p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
@@ -169,16 +180,18 @@ dialog::backdrop{background:rgba(10,20,28,.45)}
 .pair h3{margin-bottom:6px}
 .pair .theirs{color:var(--muted);font-size:.92rem;margin-bottom:8px}
 
-/* playbook */
-.steps{list-style:none;margin:32px 0 0;padding:0;counter-reset:s;position:relative}
-.steps::before{content:"";position:absolute;left:17px;top:8px;bottom:8px;width:2px;background:var(--rule)}
-.steps li{counter-increment:s;position:relative;padding:0 0 28px 56px}
-.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--surface);border:2px solid var(--sky);color:var(--sky);font-weight:800;display:grid;place-items:center;font-size:.95rem}
+/* playbook steps */
+.steps{list-style:none;margin:28px 0 0;padding:0;counter-reset:s;position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:0 40px}
+.steps li{counter-increment:s;position:relative;padding:20px 0 20px 52px;border-top:1px solid var(--rule)}
+.steps li::before{content:counter(s);position:absolute;left:0;top:18px;width:36px;height:36px;border-radius:50%;background:var(--sky);color:var(--paper);font-weight:800;display:grid;place-items:center;font-size:.95rem}
+.steps li.add{counter-increment:none}
+.steps li.add::before{content:"+";background:var(--surface);color:var(--sky);border:2px dashed var(--sky);font-size:1.2rem}
 .steps h3{padding-top:6px}
-.steps .t{color:var(--muted);font-weight:500;font-size:.9rem;margin-left:8px}
-.steps dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:10px 0 0;font-size:.93rem}
-.steps dt{color:var(--muted)}
-.steps dd{margin:0}
+.steps .tag{display:inline-block;margin-left:8px;font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--sky-soft);color:var(--sky);vertical-align:2px;letter-spacing:0}
+.steps .gets{margin:6px 0 8px;color:var(--sky);font-weight:600;font-size:.93rem}
+.steps ul{margin:0;padding-left:18px;font-size:.93rem}
+.steps ul li{padding:0;border:0;counter-increment:none;margin-bottom:4px}
+.steps ul li::before{content:none}
 
 /* library */
 .lib{margin-top:28px;display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:0;border:1px solid var(--rule);border-radius:10px;background:var(--surface);overflow:hidden}
@@ -260,9 +273,10 @@ footer h2{max-width:20ch}
   <div class="wrap">
     <a class="me" href="#top">Gidraf Wachira</a>
     <nav aria-label="Sections">
+      <a href="#numbers">Numbers</a>
+      <a href="#playbook">Playbook</a>
       <a href="#tracker">Tracker</a>
       <a href="#scope">Scope of work</a>
-      <a href="#playbook">Playbook</a>
       <a href="#library">Responses</a>
       <a href="#ai">AI</a>
       <a href="#plan">Six months</a>
@@ -277,16 +291,100 @@ footer h2{max-width:20ch}
     <div class="wrap">
       <h1>Grants management support for a 70-organisation portfolio</h1>
       <p class="lede">The EPIC Air Quality Fund is onboarding 39 new awardees and growing to 70 organisations in 44 countries. I've spent six years running awardee portfolios across Africa and Asia: onboarding, agreements, invoices, reporting and the playbooks behind them. This page shows how I'd carry that load from week one.</p>
-      <ul class="facts">
-        <li><b>23+</b>awardees onboarded at NetHope</li>
-        <li><b>$1.5M+</b>annual portfolio, 7 countries</li>
-        <li><b>100%</b>awardee retention</li>
-        <li><b>50%</b>faster grant review</li>
-        <li><b>14:00–18:30</b>Nairobi time covers your 12:00–16:30 CET core hours</li>
-      </ul>
+      <p class="hours">Available about 20 days a month, inside your 12:00–16:30 CET core hours (14:00–18:30 in Nairobi).</p>
       <div class="cta">
-        <a class="btn" href="#tracker">Try the tracker</a>
+        <a class="btn" href="#playbook">See my playbook</a>
+        <a class="btn ghost" href="#tracker">Try the tracker</a>
         <a class="btn ghost" href="#scope">See the scope of work, mapped</a>
+      </div>
+
+      <div class="numbers" id="numbers" aria-labelledby="num-title">
+        <h2 id="num-title">My grantmaking in numbers, NetHope</h2>
+        <dl class="num-row">
+          <div><dt>Awardees</dt><dd>23</dd></div>
+          <div><dt>Portfolio in 2 years</dt><dd>$3M</dd></div>
+          <div><dt>Per grant</dt><dd>$40,000–100,000</dd></div>
+          <div><dt>Grant period</dt><dd>12–18 months</dd></div>
+          <div><dt>LMIC countries</dt><dd>7</dd></div>
+        </dl>
+        <ul class="countries num-countries" aria-label="Grantee countries">
+          <li>Kenya</li><li>Uganda</li><li>Nigeria</li><li>Mali</li><li>Philippines</li><li>Nepal</li><li>Bangladesh</li>
+        </ul>
+      </div>
+
+      <div class="playbook" id="playbook" aria-labelledby="pb-title">
+        <div class="prose">
+          <h2 id="pb-title">My onboarding and continuous support playbook</h2>
+          <p class="lede">How I take an awardee from signed agreement to final impact story, and what each step achieves. The two steps marked as proposals are additions I'd suggest for the EPIC Air Quality Fund cohort.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <h3>Grant agreement drafting, review and signing</h3>
+            <p class="gets">Achieves: clear, shared expectations before any money moves.</p>
+            <ul>
+              <li>Proposed work plan with clear milestones. I prefer milestone-based tranche payments to time-based ones.</li>
+              <li>Primary and secondary project contacts documented.</li>
+              <li>Reporting frequency documented and reporting template shared.</li>
+              <li>Data and data-sharing requirements documented, with any other requirements of the fund.</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Kick-off meeting</h3>
+            <p class="gets">Achieves: an agreed work plan and calendar that I can track from day one.</p>
+            <ul>
+              <li>Discuss the fund's expectations and requirements.</li>
+              <li>Agree a high-level work plan with milestones. This is the plan I track in the project management tool, such as Asana.</li>
+              <li>Agree reporting and invoicing timelines, also tracked in the tool.</li>
+              <li>Meet the primary and secondary contacts.</li>
+              <li>Schedule quarterly check-ins, or whatever rhythm is feasible for the team.</li>
+              <li>Share the risk and lessons-learned matrix template. The team records positive and negative lessons, and the matrix becomes part of every check-in agenda.</li>
+            </ul>
+          </li>
+          <li class="add">
+            <h3>Cohort orientation session<span class="tag">Proposed for EPIC</span></h3>
+            <p class="gets">Achieves: one cohort that knows each other and hears the same rules once.</p>
+            <ul>
+              <li>Held just after all awardees have signed their grant agreements.</li>
+              <li>Cohort members get to know each other.</li>
+              <li>Fund-wide requirements and expectations are shared with everyone at once.</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Quarterly check-ins</h3>
+            <p class="gets">Achieves: problems surface early, in an informal conversation rather than a late report.</p>
+            <ul>
+              <li>Review progress against the work plan.</li>
+              <li>Review risks and lessons learned, and act on any recommendations.</li>
+              <li>Review or collect data for M&amp;E, communications and reporting.</li>
+            </ul>
+          </li>
+          <li class="add">
+            <h3>Semi-annual progress info session<span class="tag">Proposed for EPIC</span></h3>
+            <p class="gets">Achieves: awardees learn from each other, not only from the Fund.</p>
+            <ul>
+              <li>Awardees share learnings and challenges.</li>
+              <li>Peers exchange ideas across countries.</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Interim reports</h3>
+            <p class="gets">Achieves: payments tied to verified progress.</p>
+            <ul>
+              <li>Review for accuracy and completeness.</li>
+              <li>Request the invoice once the report is approved.</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Final report</h3>
+            <p class="gets">Achieves: a clean close-out, and results that travel beyond the grant.</p>
+            <ul>
+              <li>Review for accuracy and completeness.</li>
+              <li>Request the final invoice after the report is approved.</li>
+              <li>Awardee presents their impact at a working group, community of practice, conference or summit.</li>
+              <li>Write the impact story with the awardee and the communications and M&amp;E teams.</li>
+            </ul>
+          </li>
+        </ol>
       </div>
 
       <div class="tracker" id="tracker" aria-labelledby="tk-title">
@@ -351,7 +449,7 @@ footer h2{max-width:20ch}
             </ul>
           </div>
           <ul class="did">
-            <li><b>Onboarded 23+ awardees across 7 countries</b> at NetHope: agreements, invoices and orientation, with 100% adherence to award terms and donor, legal and regulatory requirements.</li>
+            <li><b>Onboarded 23 awardees across 7 countries</b> at NetHope: agreements, invoices and orientation, with 100% adherence to award terms and donor, legal and regulatory requirements.</li>
             <li>Ran a kick-off meeting with every awardee covering the agreement, expectations and named contacts, then <b>quarterly check-ins</b> to review progress and risk.</li>
             <li>Drafted and negotiated grant contracts and routed them to the Chief Administrative Officer for approval.</li>
             <li>Reviewed invoices for each <b>grant tranche</b> against award terms. Earlier, at Mezzanineware, processed invoices for 15+ farmer organisations against deliverable milestones with 100% financial accuracy.</li>
@@ -473,65 +571,6 @@ footer h2{max-width:20ch}
     </div>
   </section>
 
-  <section id="playbook">
-    <div class="wrap">
-      <div class="prose">
-        <h2>Awardee Onboarding Playbook, first outline</h2>
-        <p class="lede">The deliverable meant to outlast the contract. This is how I'd structure it before week one; I'd shape it with the Project Manager and fill it from how the team actually works.</p>
-      </div>
-      <ol class="steps">
-        <li>
-          <h3>Award notice and welcome pack<span class="t">Days 0–5</span></h3>
-          <dl><dt>Does</dt><dd>Welcome email, named contacts, document checklist for agreement and payment setup.</dd>
-          <dt>Template</dt><dd>Welcome email; document checklist</dd>
-          <dt>Decision</dt><dd>Are entity and banking documents complete enough to start the agreement?</dd></dl>
-        </li>
-        <li>
-          <h3>Background brief<span class="t">Days 3–15</span></h3>
-          <dl><dt>Does</dt><dd>One-page profile: registration, size, prior funding, support structures, country context.</dd>
-          <dt>Template</dt><dd>Awardee brief</dd>
-          <dt>Decision</dt><dd>Anything the Project Manager should know before contracting?</dd></dl>
-        </li>
-        <li>
-          <h3>Grant agreement<span class="t">Days 10–30</span></h3>
-          <dl><dt>Does</dt><dd>Coordinate drafting and signature with EPIC and University of Chicago offices; log status daily in the tracker.</dd>
-          <dt>Template</dt><dd>Agreement cover note; status log</dd>
-          <dt>Decision</dt><dd>Escalate any term the awardee questions.</dd></dl>
-        </li>
-        <li>
-          <h3>Kick-off meeting<span class="t">Days 20–40</span></h3>
-          <dl><dt>Does</dt><dd>Walk through the agreement, reporting calendar, invoicing and open-data expectations; agree how we'll communicate.</dd>
-          <dt>Template</dt><dd>Kick-off agenda; reporting calendar</dd>
-          <dt>Decision</dt><dd>Any early risks to log?</dd></dl>
-        </li>
-        <li>
-          <h3>First invoice<span class="t">Days 30–45</span></h3>
-          <dl><dt>Does</dt><dd>Check amount, schedule, banking details and supporting documents against award terms before it goes to the admin office.</dd>
-          <dt>Template</dt><dd>Invoice checklist; correction request</dd>
-          <dt>Decision</dt><dd>Approve for processing, or return with specific fixes.</dd></dl>
-        </li>
-        <li>
-          <h3>Orientation and community<span class="t">Month 2</span></h3>
-          <dl><dt>Does</dt><dd>Cohort orientation, introduction to AirWatch and the webinar calendar, peer introductions.</dd>
-          <dt>Template</dt><dd>Orientation deck; FAQ</dd>
-          <dt>Decision</dt><dd>Which awardees need extra support?</dd></dl>
-        </li>
-        <li>
-          <h3>Reporting rhythm<span class="t">Month 9 and month 18</span></h3>
-          <dl><dt>Does</dt><dd>Reminders at 30, 14 and 3 days; completeness check on arrival; follow-ups on gaps.</dd>
-          <dt>Template</dt><dd>Reminder series; completeness checklist</dd>
-          <dt>Decision</dt><dd>Escalate substantive issues to the Project Manager and M&amp;E Senior Analyst.</dd></dl>
-        </li>
-        <li>
-          <h3>Renewal preparation<span class="t">Months 14–16</span></h3>
-          <dl><dt>Does</dt><dd>Assemble the initial assessment and background material from tracker, reports and correspondence.</dd>
-          <dt>Template</dt><dd>Renewal brief</dd>
-          <dt>Decision</dt><dd>None for me. The team decides; I make sure they have what they need.</dd></dl>
-        </li>
-      </ol>
-    </div>
-  </section>
-
   <section id="library">
     <div class="wrap">
       <div class="prose">
@@ -628,7 +667,7 @@ footer h2{max-width:20ch}
       </div>
       <div class="bg-grid">
         <ul class="roles">
-          <li><span class="yr">2023–2026</span><div><b>Global Climate Intersections Lead</b><span class="o">NetHope, remote</span><p>Directed grant management for a $1.5M+ annual climate portfolio: 23+ awardees in 7 countries, 100% donor compliance, 95%+ budget adherence.</p></div></li>
+          <li><span class="yr">2023–2026</span><div><b>Global Climate Intersections Lead</b><span class="o">NetHope, remote</span><p>Directed grant management for a $1.5M+ annual climate portfolio: 23 awardees in 7 countries, 100% donor compliance, 95%+ budget adherence.</p></div></li>
           <li><span class="yr">2020–2023</span><div><b>Programme Manager, Connected Farmer</b><span class="o">Mezzanineware (Vodacom Group), remote</span><p>15+ partner organisations and 250,000+ farmers across Kenya, Uganda and Tanzania. Secured $2M+ in continued programme investment.</p></div></li>
           <li><span class="yr">2019–2020</span><div><b>Country Manager, Agri-wallet Rwanda</b><span class="o">Dodore Limited, Kigali</span><p>Built country operations from scratch, with trackers, checklists and SOPs for partner management.</p></div></li>
           <li><span class="yr">2014–2019</span><div><b>Programme Manager and Business Development</b><span class="o">Dodore Limited, Nairobi</span><p>Agri-wallet and the M-Tiba digital health finance pilot.</p></div></li>
@@ -664,7 +703,7 @@ footer h2{max-width:20ch}
 <footer id="contact">
   <div class="wrap">
     <h2>Available now for the full six months</h2>
-    <p class="lede prose">About 20 days a month, inside your 12:00–16:30 CET core hours. References from NetHope and Connected Farmer are in my CV and available on request.</p>
+    <p class="lede prose">References from NetHope and Connected Farmer are in my CV and available on request.</p>
     <div class="contact">
       <a class="btn" href="mailto:gidrafwachira86@gmail.com">Email gidrafwachira86@gmail.com</a>
       <a class="btn ghost" href="https://www.calendly.com/gidrafwachira">Book a call</a>
