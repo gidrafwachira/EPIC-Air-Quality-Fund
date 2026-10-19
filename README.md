@@ -7,7 +7,6 @@ It opens with my grantmaking numbers and my onboarding and continuous support pl
 - **Master awardee tracker:** milestones across an 18-month award, turned into next actions, with drafted follow-up emails and a CSV export.
 - **Standard-response library:** searchable templates you can copy.
 - **AI workflows:** what AI does, what I check, and what is never handed to AI.
-- **Six-month plan.**
 
 The awardees in the tracker and response library are fictional samples, not EPIC data.
 

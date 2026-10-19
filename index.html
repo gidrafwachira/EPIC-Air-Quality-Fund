@@ -226,19 +226,6 @@ dialog::backdrop{background:rgba(10,20,28,.45)}
 .made{margin-top:36px;max-width:68ch}
 .made h3{margin-bottom:8px}
 
-/* plan */
-.months{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:32px;border-top:2px solid var(--ink)}
-.month{padding:16px 16px 18px 0;border-right:1px solid var(--rule)}
-.month+.month{padding-left:16px}
-.month:last-child{border-right:0}
-.month h3{font-size:1rem}
-.month h3 span{display:block;font-size:.82rem;font-weight:500;color:var(--muted)}
-.month ul{margin:10px 0 0;padding-left:18px;font-size:.9rem}
-.month li{margin-bottom:6px}
-.surge{height:6px;margin-top:10px;background:var(--sky);border-radius:3px}
-@media (max-width:960px){.months{grid-template-columns:repeat(2,minmax(0,1fr))}.month,.month+.month{padding:16px 16px 18px 0;border-right:0;border-bottom:1px solid var(--rule)}.month:nth-child(even){padding-left:16px}}
-@media (max-width:520px){.months{grid-template-columns:1fr}.month:nth-child(even){padding-left:0}}
-
 /* background */
 .bg-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;margin-top:28px}
 .roles{list-style:none;margin:0;padding:0}
@@ -279,7 +266,6 @@ footer h2{max-width:20ch}
       <a href="#scope">Scope of work</a>
       <a href="#library">Responses</a>
       <a href="#ai">AI</a>
-      <a href="#plan">Six months</a>
       <a href="#background">Background</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -633,29 +619,6 @@ footer h2{max-width:20ch}
       <div class="made">
         <h3>How this page was made</h3>
         <p>I built this site with Claude, an AI assistant, in one working session. I gave it your scope of work, my CV, my application answers and my existing portfolio. It drafted the structure, the code and the tracker logic. I supplied every fact and checked every claim. That's the split I'd use on the job: AI takes the repetitive build, and I stay accountable for what goes out.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="plan">
-    <div class="wrap">
-      <div class="prose">
-        <h2>The six months, as I'd plan them</h2>
-        <p class="lede">Onboarding load peaks early, so systems come first. Then the contract ends with a hand-over the team can run without me. The bars show where I expect the workload to peak.</p>
-      </div>
-      <div class="months">
-        <div class="month"><h3>Month 1<span>Learn and set up</span></h3><div class="surge" style="opacity:.75"></div>
-          <ul><li>Shadow the shared inbox</li><li>Build the master tracker from current award data</li><li>Support first 2026 kick-offs</li></ul></div>
-        <div class="month"><h3>Month 2<span>Onboarding peak</span></h3><div class="surge" style="opacity:1"></div>
-          <ul><li>Agreements and first invoices</li><li>Playbook draft one</li><li>Response library from top inbox questions</li></ul></div>
-        <div class="month"><h3>Month 3<span>Orientation</span></h3><div class="surge" style="opacity:.85"></div>
-          <ul><li>Cohort orientation sessions</li><li>First webinar at the larger cadence</li><li>Tracker prompts in weekly team rhythm</li></ul></div>
-        <div class="month"><h3>Month 4<span>Reporting cycle</span></h3><div class="surge" style="opacity:.65"></div>
-          <ul><li>Completeness reviews for due reports</li><li>M&amp;E data-gap follow-ups</li><li>AirWatch contributions</li></ul></div>
-        <div class="month"><h3>Month 5<span>Renewals and impact</span></h3><div class="surge" style="opacity:.5"></div>
-          <ul><li>Renewal background material</li><li>Awardee impact summaries</li><li>Workflow improvement proposals</li></ul></div>
-        <div class="month"><h3>Month 6<span>Hand-over</span></h3><div class="surge" style="opacity:.35"></div>
-          <ul><li>Playbook final version</li><li>Walk-through with the team</li><li>Lessons-learned note</li></ul></div>
       </div>
     </div>
   </section>
